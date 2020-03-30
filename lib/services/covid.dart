@@ -14,6 +14,7 @@ class Covid {
     try {
       http.Response confirmedRsp = await http.get(
           'https://api.covid19api.com/total/country/$name/status/confirmed');
+
       http.Response deathsRsp = await http
           .get('https://api.covid19api.com/total/country/$name/status/deaths');
 
@@ -35,27 +36,41 @@ class Covid {
     int length = confirmed.length;
     int length2 = deaths.length;
 
-    cases.add(Case(
-        date: DateTime.now(),
-        confirmed: latestCase['cases'],
-        deaths: latestCase['deaths']));
-
     if (length != length2) {
       print('Confirmed ($length) does NOT equal Deaths ($length2)!');
     }
+
+    DateTime latestDate = DateTime.now().subtract(Duration(days: 2));
+
     for (int i = 0; i < length; i++) {
       if (!(confirmed[i]['Date'] == deaths[i]['Date'])) {
         print('ConfirmedDate does not equal DeathsDate!');
       }
+
       DateTime date = DateTime.parse(confirmed[i]['Date']);
+      if (date.isAfter(latestDate)) {
+        latestDate = date;
+      }
+
       cases.add(Case(
           date: date,
           confirmed: confirmed[i]['Cases'],
           deaths: deaths[i]['Cases']));
-
-      cases.sort();
     }
 
+    // add the latest case if not present
+    DateTime today = DateTime.now();
+    if (today.isAfter(latestDate)) {
+      cases.add(Case(
+          date: today,
+          confirmed: latestCase['cases'],
+          deaths: latestCase['deaths']));
+    }
+
+    // sort case by date (latest at the first)
+    cases.sort();
+
+    // calcualte newConfirmed and newDeath
     for (int i = 0; i < cases.length - 1; i++) {
       Case current = cases[i];
       Case previous = cases[i + 1];

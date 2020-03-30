@@ -109,9 +109,7 @@ class CountryCard extends StatelessWidget {
     return Card(
       child: ListTile(
         onTap: () async {
-          print(covid.country);
           await covid.getData();
-          print('got data');
           Navigator.pop(context, {'covid': covid});
         },
         title: Text(AppLocalizations.of(context).translate(covid.country)),

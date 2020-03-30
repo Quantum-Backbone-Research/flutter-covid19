@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:covid19/app_localizations.dart';
-import 'package:covid19/pages/Loading.dart';
-import 'package:covid19/pages/ChooseLocation.dart';
+import 'package:covid19/pages/loading.dart';
+import 'package:covid19/pages/choose_location.dart';
 import 'package:covid19/pages/home.dart';
 
 void main() => runApp(MaterialApp(
