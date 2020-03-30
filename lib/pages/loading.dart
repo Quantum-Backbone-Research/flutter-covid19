@@ -9,7 +9,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   void updateData() async {
-    Covid instance = Covid(country: 'Spain', name: 'spain', name2: 'spain');
+    Covid instance = Covid(country: 'China', name: 'china', name2: 'china');
     await instance.getData();
     Navigator.pushReplacementNamed(context, '/home',
         arguments: {'covid': instance});
