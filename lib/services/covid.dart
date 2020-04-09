@@ -1,16 +1,24 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Covid {
+class Covid implements Comparable {
   String country;
   String name2;
   String name;
   String flag;
+  int currentConfirmed;
+  int currentDeaths;
   List<Case> cases = [];
+  static const cacheTimeInMinutes = 10;
+  DateTime lastUpdated =
+      DateTime.now().subtract(Duration(minutes: cacheTimeInMinutes + 1));
 
   Covid({this.country, this.name, this.name2, this.flag});
 
   Future<void> getData() async {
+    if (DateTime.now().difference(lastUpdated).inMinutes < cacheTimeInMinutes)
+      return;
+
     try {
       http.Response confirmedRsp = await http.get(
           'https://api.covid19api.com/total/country/$name/status/confirmed');
@@ -33,6 +41,8 @@ class Covid {
   }
 
   void _updateCases(List confirmed, List deaths, Map latestCase) {
+    cases = [];
+
     int length = confirmed.length;
     int length2 = deaths.length;
 
@@ -78,6 +88,16 @@ class Covid {
       current.newConfirmed = current.confirmed - previous.confirmed;
       current.newDeaths = current.deaths - previous.deaths;
     }
+
+    lastUpdated = DateTime.now();
+  }
+
+  @override
+  int compareTo(other) {
+    Covid other2 = other as Covid;
+    if (other2.currentConfirmed == null) return 1;
+    if (currentConfirmed == null) return -1;
+    return other2.currentConfirmed.compareTo(currentConfirmed);
   }
 }
 

@@ -4,19 +4,21 @@ import 'package:covid19/services/covid.dart';
 import 'package:intl/intl.dart';
 import 'package:covid19/style.dart';
 
-class Home extends StatefulWidget {
+class CountryDetail extends StatefulWidget {
+  final Covid covid;
+
+  const CountryDetail(this.covid);
+
   @override
-  _HomeState createState() => _HomeState();
+  _CountryDetailState createState() => _CountryDetailState();
 }
 
-class _HomeState extends State<Home> {
-  Map data = {};
+class _CountryDetailState extends State<CountryDetail> {
   bool pressed = true;
 
   @override
   Widget build(BuildContext context) {
-    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-    Covid covid = data['covid'];
+    Covid covid = widget.covid;
     DateTime now = DateTime.now();
     String currentTime = DateFormat.jm().format(now);
 
@@ -40,12 +42,8 @@ class _HomeState extends State<Home> {
                 }),
             IconButton(
               icon: Icon(Icons.list),
-              onPressed: () async {
-                dynamic result =
-                    await Navigator.pushNamed(context, '/location');
-                setState(() {
-                  data = result;
-                });
+              onPressed: () {
+                Navigator.pop(context);
               },
             )
           ]),
@@ -70,8 +68,9 @@ class CaseCard extends StatelessWidget {
   final Case item;
   final bool pressed;
 
-  static final DateFormat DF = DateFormat('yyyy-MM-dd');
-  static final DateFormat DF2 = DateFormat('EEE');
+  static final DateFormat df = DateFormat('yyyy-MM-dd');
+  static final DateFormat df2 = DateFormat('EEE');
+  static final nf = NumberFormat("###,###,###");
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +80,7 @@ class CaseCard extends StatelessWidget {
         body1: TextStyle(fontSize: 20),
       )),
       child: Card(
-        color: pressed ? Colors.amber[50] : Colors.blueGrey[900],
+        color: pressed ? Colors.lightBlue[50] : Colors.blueGrey[900],
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -91,7 +90,7 @@ class CaseCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    DF.format(item.date),
+                    df.format(item.date),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: pressed ? TextColorDark : TextColorLight),
@@ -101,7 +100,7 @@ class CaseCard extends StatelessWidget {
                   ),
                   Text(
                     AppLocalizations.of(context)
-                        .translate(DF2.format(item.date)),
+                        .translate(df2.format(item.date)),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: pressed ? TextColorDark : TextColorLight),
@@ -120,7 +119,7 @@ class CaseCard extends StatelessWidget {
                         color: pressed ? TextColorDark : TextColorLight),
                   )),
                   Text(
-                    '${item.newConfirmed}',
+                    '${nf.format(item.newConfirmed)}',
                     style: TextStyle(
                         color: pressed ? TextColorDark : TextColorLight),
                   ),
@@ -137,7 +136,7 @@ class CaseCard extends StatelessWidget {
                     style: TextStyle(
                         color: pressed ? TextColorDark : TextColorLight),
                   )),
-                  Text('${item.newDeaths}',
+                  Text('${nf.format(item.newDeaths)}',
                       style: TextStyle(
                           color: pressed ? TextColorDark : TextColorLight)),
                 ],
@@ -154,7 +153,7 @@ class CaseCard extends StatelessWidget {
                         color: pressed ? TextColorDark : TextColorLight),
                   )),
                   Text(
-                    '${item.confirmed}',
+                    '${nf.format(item.confirmed)}',
                     style: TextStyle(
                         color: pressed ? TextColorDark : TextColorLight),
                   ),
@@ -172,7 +171,7 @@ class CaseCard extends StatelessWidget {
                         color: pressed ? TextColorDark : TextColorLight),
                   )),
                   Text(
-                    '${item.deaths}',
+                    '${nf.format(item.deaths)}',
                     style: TextStyle(
                         color: pressed ? TextColorDark : TextColorLight),
                   ),
