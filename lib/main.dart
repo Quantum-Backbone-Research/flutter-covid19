@@ -6,7 +6,7 @@ import 'package:covid19/app_localizations.dart';
 import 'package:covid19/pages/initial_loading.dart';
 import 'package:covid19/pages/loading.dart';
 import 'package:covid19/pages/choose_location.dart';
-import 'package:covid19/pages/home.dart';
+import 'package:covid19/pages/country_detail.dart';
 
 const InitialRoute = '/';
 const LoadingRoute = '/loading';
@@ -56,7 +56,7 @@ RouteFactory _routes() {
         break;
       case DetailRoute:
         Covid covid = arguments['covid'];
-        screen = Home(covid);
+        screen = CountryDetail(covid);
         break;
       default:
         return null;

@@ -4,16 +4,16 @@ import 'package:covid19/services/covid.dart';
 import 'package:intl/intl.dart';
 import 'package:covid19/style.dart';
 
-class Home extends StatefulWidget {
+class CountryDetail extends StatefulWidget {
   final Covid covid;
 
-  const Home(this.covid);
+  const CountryDetail(this.covid);
 
   @override
-  _HomeState createState() => _HomeState();
+  _CountryDetailState createState() => _CountryDetailState();
 }
 
-class _HomeState extends State<Home> {
+class _CountryDetailState extends State<CountryDetail> {
   bool pressed = true;
 
   @override
