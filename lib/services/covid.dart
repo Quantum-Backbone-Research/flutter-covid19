@@ -1,11 +1,13 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Covid {
+class Covid implements Comparable {
   String country;
   String name2;
   String name;
   String flag;
+  int currentConfirmed;
+  int currentDeaths;
   List<Case> cases = [];
 
   Covid({this.country, this.name, this.name2, this.flag});
@@ -78,6 +80,14 @@ class Covid {
       current.newConfirmed = current.confirmed - previous.confirmed;
       current.newDeaths = current.deaths - previous.deaths;
     }
+  }
+
+  @override
+  int compareTo(other) {
+    Covid other2 = other as Covid;
+    if (other2.currentConfirmed == null) return 1;
+    if (currentConfirmed == null) return -1;
+    return other2.currentConfirmed.compareTo(currentConfirmed);
   }
 }
 

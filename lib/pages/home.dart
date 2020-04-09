@@ -5,18 +5,20 @@ import 'package:intl/intl.dart';
 import 'package:covid19/style.dart';
 
 class Home extends StatefulWidget {
+  final Covid covid;
+
+  const Home(this.covid);
+
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  Map data = {};
   bool pressed = true;
 
   @override
   Widget build(BuildContext context) {
-    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-    Covid covid = data['covid'];
+    Covid covid = widget.covid;
     DateTime now = DateTime.now();
     String currentTime = DateFormat.jm().format(now);
 
@@ -40,12 +42,8 @@ class _HomeState extends State<Home> {
                 }),
             IconButton(
               icon: Icon(Icons.list),
-              onPressed: () async {
-                dynamic result =
-                    await Navigator.pushNamed(context, '/location');
-                setState(() {
-                  data = result;
-                });
+              onPressed: () {
+                Navigator.pop(context);
               },
             )
           ]),
