@@ -70,6 +70,7 @@ class CaseCard extends StatelessWidget {
 
   static final DateFormat df = DateFormat('yyyy-MM-dd');
   static final DateFormat df2 = DateFormat('EEE');
+  static final nf = NumberFormat("###,###,###");
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +119,7 @@ class CaseCard extends StatelessWidget {
                         color: pressed ? TextColorDark : TextColorLight),
                   )),
                   Text(
-                    '${item.newConfirmed}',
+                    '${nf.format(item.newConfirmed)}',
                     style: TextStyle(
                         color: pressed ? TextColorDark : TextColorLight),
                   ),
@@ -135,7 +136,7 @@ class CaseCard extends StatelessWidget {
                     style: TextStyle(
                         color: pressed ? TextColorDark : TextColorLight),
                   )),
-                  Text('${item.newDeaths}',
+                  Text('${nf.format(item.newDeaths)}',
                       style: TextStyle(
                           color: pressed ? TextColorDark : TextColorLight)),
                 ],
@@ -152,7 +153,7 @@ class CaseCard extends StatelessWidget {
                         color: pressed ? TextColorDark : TextColorLight),
                   )),
                   Text(
-                    '${item.confirmed}',
+                    '${nf.format(item.confirmed)}',
                     style: TextStyle(
                         color: pressed ? TextColorDark : TextColorLight),
                   ),
@@ -170,7 +171,7 @@ class CaseCard extends StatelessWidget {
                         color: pressed ? TextColorDark : TextColorLight),
                   )),
                   Text(
-                    '${item.deaths}',
+                    '${nf.format(item.deaths)}',
                     style: TextStyle(
                         color: pressed ? TextColorDark : TextColorLight),
                   ),

@@ -11,7 +11,6 @@ class Summary {
     http.Response totalRsp =
         await http.get('https://coronavirus-19-api.herokuapp.com/countries');
     List<dynamic> ccs = jsonDecode(totalRsp.body);
-    print(ccs);
 
     for (Covid covid in countries) {
       _updateCurrentData(covid, ccs);
@@ -27,11 +26,10 @@ class Summary {
   void _updateCurrentData(Covid covid, List<dynamic> summary) {
     for (dynamic data2 in summary) {
       Map data = data2 as Map;
-      print(covid.name2);
+
       if (covid.name2 == data['country'].toLowerCase()) {
         covid.currentConfirmed = data['cases'];
         covid.currentDeaths = data['deaths'];
-        print('done');
         return;
       }
     }

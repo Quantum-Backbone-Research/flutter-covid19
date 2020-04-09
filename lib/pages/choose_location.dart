@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:covid19/app_localizations.dart';
 import 'package:covid19/services/covid.dart';
 import 'package:covid19/main.dart';
+import 'package:intl/intl.dart';
 
 class ChooseLocation extends StatefulWidget {
   final Summary summary;
@@ -39,11 +40,14 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
 class CountryCard extends StatelessWidget {
   final Covid covid;
-
   CountryCard({this.covid});
+  static final nf = NumberFormat("###,###,###");
 
   @override
   Widget build(BuildContext context) {
+    final confirmed = nf.format(covid.currentConfirmed);
+    final deaths = nf.format(covid.currentDeaths);
+
     return Card(
       child: ListTile(
         onTap: () async {
@@ -51,7 +55,7 @@ class CountryCard extends StatelessWidget {
               arguments: {'covid': covid});
         },
         title: Text(AppLocalizations.of(context).translate(covid.country)),
-        subtitle: Text('${covid.currentConfirmed} / ${covid.currentDeaths}'),
+        subtitle: Text('$confirmed / $deaths'),
         trailing: Image(
           image: AssetImage('assets/images/${covid.flag}.png'),
         ),
