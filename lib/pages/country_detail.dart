@@ -79,7 +79,7 @@ class CaseCard extends StatelessWidget {
         body1: TextStyle(fontSize: 20),
       )),
       child: Card(
-        color: pressed ? Colors.lightBlue : Colors.blueGrey[900],
+        color: pressed ? Colors.lightBlue[50] : Colors.blueGrey[900],
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(

@@ -9,9 +9,9 @@ class Summary {
 
   Future<void> updateSummary() async {
     http.Response totalRsp =
-        await http.get('https://api.covid19api.com/summary');
-    Map resp = jsonDecode(totalRsp.body);
-    List<dynamic> ccs = resp['Countries'];
+        await http.get('https://coronavirus-19-api.herokuapp.com/countries');
+    List<dynamic> ccs = jsonDecode(totalRsp.body);
+    print(ccs);
 
     for (Covid covid in countries) {
       _updateCurrentData(covid, ccs);
@@ -25,10 +25,13 @@ class Summary {
   }
 
   void _updateCurrentData(Covid covid, List<dynamic> summary) {
-    for (dynamic _data in summary) {
-      Map data = _data as Map;
-      if (covid.flag == data['CountryCode']) {
-        covid.currentConfirmed = data['TotalConfirmed'];
+    for (dynamic data2 in summary) {
+      Map data = data2 as Map;
+      print(covid.name2);
+      if (covid.name2 == data['country'].toLowerCase()) {
+        covid.currentConfirmed = data['cases'];
+        covid.currentDeaths = data['deaths'];
+        print('done');
         return;
       }
     }
@@ -37,16 +40,16 @@ class Summary {
   final List<Covid> countries = [
     Covid(country: 'China', name: 'china', name2: 'china', flag: 'CN'),
     Covid(country: 'Canada', name: 'canada', name2: 'canada', flag: 'CA'),
-    Covid(country: 'United States', name: 'us', name2: 'USA', flag: 'US'),
+    Covid(country: 'United States', name: 'us', name2: 'usa', flag: 'US'),
     Covid(country: 'Italy', name: 'italy', name2: 'italy', flag: 'IT'),
-    Covid(country: 'Spain', name: 'spain', name2: 'Spain', flag: 'ES'),
+    Covid(country: 'Spain', name: 'spain', name2: 'spain', flag: 'ES'),
     Covid(country: 'France', name: 'france', name2: 'france', flag: 'FR'),
     Covid(country: 'Germany', name: 'germany', name2: 'germany', flag: 'DE'),
     Covid(country: 'Portugal', name: 'portugal', name2: 'portugal', flag: 'PT'),
     Covid(
         country: 'United Kingdom',
         name: 'united-kingdom',
-        name2: 'UK',
+        name2: 'uk',
         flag: 'GB'),
     Covid(country: 'Ireland', name: 'ireland', name2: 'ireland', flag: 'IE'),
     Covid(country: 'Norway', name: 'norway', name2: 'norway', flag: 'NO'),
@@ -66,7 +69,7 @@ class Summary {
     Covid(
         country: 'South Korea',
         name: 'korea-south',
-        name2: 's.korea',
+        name2: 's. korea',
         flag: 'KR'),
     Covid(
         country: 'Singapore',
@@ -82,7 +85,7 @@ class Summary {
     Covid(
         country: 'Saudi Arabia',
         name: 'saudi-arabia',
-        name2: 'Saudi Arabia',
+        name2: 'saudi arabia',
         flag: 'SA'),
     Covid(country: 'Egypt', name: 'egypt', name2: 'egypt', flag: 'EG'),
     Covid(country: 'Ethiopia', name: 'ethiopia', name2: 'ethiopia', flag: 'ET'),

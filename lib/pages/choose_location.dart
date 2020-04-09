@@ -51,6 +51,7 @@ class CountryCard extends StatelessWidget {
               arguments: {'covid': covid});
         },
         title: Text(AppLocalizations.of(context).translate(covid.country)),
+        subtitle: Text('${covid.currentConfirmed} / ${covid.currentDeaths}'),
         trailing: Image(
           image: AssetImage('assets/images/${covid.flag}.png'),
         ),

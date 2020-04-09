@@ -20,10 +20,10 @@ class Loading extends StatelessWidget {
     _getData(context);
 
     return Scaffold(
-      backgroundColor: Colors.lightGreenAccent,
-      body: SpinKitFadingCircle(
+      backgroundColor: Colors.green[200],
+      body: SpinKitDoubleBounce(
         color: Colors.pink,
-        size: 50.0,
+        size: 100.0,
       ),
     );
   }
