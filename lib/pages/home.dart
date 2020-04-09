@@ -70,8 +70,8 @@ class CaseCard extends StatelessWidget {
   final Case item;
   final bool pressed;
 
-  static final DateFormat DF = DateFormat('yyyy-MM-dd');
-  static final DateFormat DF2 = DateFormat('EEE');
+  static final DateFormat df = DateFormat('yyyy-MM-dd');
+  static final DateFormat df2 = DateFormat('EEE');
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class CaseCard extends StatelessWidget {
         body1: TextStyle(fontSize: 20),
       )),
       child: Card(
-        color: pressed ? Colors.amber[50] : Colors.blueGrey[900],
+        color: pressed ? Colors.lightBlue : Colors.blueGrey[900],
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -91,7 +91,7 @@ class CaseCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    DF.format(item.date),
+                    df.format(item.date),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: pressed ? TextColorDark : TextColorLight),
@@ -101,7 +101,7 @@ class CaseCard extends StatelessWidget {
                   ),
                   Text(
                     AppLocalizations.of(context)
-                        .translate(DF2.format(item.date)),
+                        .translate(df2.format(item.date)),
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: pressed ? TextColorDark : TextColorLight),
