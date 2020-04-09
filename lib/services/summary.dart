@@ -21,13 +21,13 @@ class Summary {
       if (e.currentConfirmed == null) print(e.country);
     });
 
-    // countries.sort();
+    countries.sort();
   }
 
   void _updateCurrentData(Covid covid, List<dynamic> summary) {
     for (dynamic _data in summary) {
       Map data = _data as Map;
-      if (covid.country == data['Country']) {
+      if (covid.flag == data['CountryCode']) {
         covid.currentConfirmed = data['TotalConfirmed'];
         return;
       }
