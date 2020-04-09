@@ -21,6 +21,7 @@ void main() {
   ];
 
   return runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     supportedLocales: [Locale('en', 'US'), Locale('zh', 'CN')],
     localizationsDelegates: localizationsDelegates,
     localeResolutionCallback: localeCB,
@@ -48,7 +49,8 @@ RouteFactory _routes() {
         screen = InitialLoading();
         break;
       case LoadingRoute:
-        screen = Loading();
+        Covid covid = arguments['covid'];
+        screen = Loading(covid);
         break;
       case ChooseLocationRoute:
         Summary summary = arguments['summary'];
